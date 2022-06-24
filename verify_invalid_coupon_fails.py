@@ -23,23 +23,23 @@ def go_to_cart_page(driver):
     driver.get('http://demostore.supersqa.com/cart')
 
 
-def apply_coupon(driver, coupon_code):
-    coupon_field = driver.find_element(By.ID, 'coupon_code')
-    coupon_field.send_keys(coupon_code)
-    apply_btn = driver.find_element(By.CSS_SELECTOR, '#post-7 > div > div > form > table > tbody > tr:nth-child(3) > td > div > button')
-    apply_btn.click()
-
-
 def verify_cart_has_item(driver):
 
     for i in range(5):
         try:
-            driver.find_element(By.CLASS_NAME, 'cart_item')
+            driver.find_element(By.CSS_SELECTOR, '#post-7 > div > div > form > table > tbody > tr:nth-child(1)')
             return
         except NoSuchElementException:
             print("Item not in cart. Retrying in 2 seconds")
             time.sleep(2)
             driver.refresh()
+
+
+def apply_coupon(driver, coupon_code):
+    coupon_field = driver.find_element(By.ID, 'coupon_code')
+    coupon_field.send_keys(coupon_code)
+    apply_btn = driver.find_element(By.CSS_SELECTOR, '#post-7 > div > div > form > table > tbody > tr:nth-child(2) > td > div > button')
+    apply_btn.click()
 
 
 def get_displayed_error_message(driver):
